@@ -20,7 +20,7 @@ void setup() {
 
   //Configurando myWiFi
   myWiFi.setWifiFile(wifiFile);
-  myWiFi.setFileSystem(uFileS);
+  myWiFi.setFileSystem(&uFileS);
   myWiFi.begin();
   wifiMulti.run();
 

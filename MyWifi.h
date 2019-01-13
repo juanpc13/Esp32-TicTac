@@ -5,20 +5,20 @@
 class MyWiFi {
   private:
     String wFilePath;
-    utilsSPIFFS _uFS;
+    utilsSPIFFS *_uFS;
   public:
 
     void setWifiFile(String _wFilePath) {
       wFilePath = _wFilePath;
     }
 
-    void setFileSystem(utilsSPIFFS u) {
+    void setFileSystem(utilsSPIFFS *u) {
       _uFS = u;
     }
 
     bool begin() {
       //Convirtiendo archivo en JsonArray
-      String json = _uFS.readFile(wFilePath);
+      String json = _uFS->readFile(wFilePath);
       DynamicJsonDocument doc;
       deserializeJson(doc, json);
 
