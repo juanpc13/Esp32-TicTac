@@ -26,3 +26,7 @@ SH1106 display(0x3c, 0, 2);
 const byte switchPin = 1;
 const byte externalPin = 3;
 
+//Objeto del boton
+#include "ButtonTool.h"
+ButtonTool switchButton(switchPin);
+

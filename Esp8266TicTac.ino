@@ -4,7 +4,7 @@ void setup() {
 
   //Inicializamos los pines
   pinMode(externalPin, OUTPUT);
-  pinMode(switchPin, INPUT_PULLUP);
+  switchButton.begin();
 
   //Initialising the UI will init the display too.
   display.init();
@@ -29,16 +29,19 @@ void setup() {
 
 void loop() {
 
+  switchButton.update();
   boolean conected = wifiMulti.run();
   byte switchValue = digitalRead(switchPin);
 
   display.clear();
 
-  if (switchValue == LOW && conected) {
+  if (switchButton.isPressed() && conected) {
     display.setFont(ArialMT_Plain_10);
     display.setTextAlignment(TEXT_ALIGN_CENTER);
     display.drawString(64, 22, WiFi.localIP().toString());
-    delay(10);
+    if(switchButton.longPress()){
+      display.drawString(64, 5, "LongPress Active");            
+    }
   }
 
   display.display();
