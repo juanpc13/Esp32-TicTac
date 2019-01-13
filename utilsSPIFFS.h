@@ -1,6 +1,4 @@
-#include "SPIFFS.h"
-
-#define FORMAT_SPIFFS_IF_FAILED true
+#include "FS.h"
 
 class utilsSPIFFS {
   private:
@@ -10,7 +8,7 @@ class utilsSPIFFS {
       if (format) {
         SPIFFS.format();
       }
-      if (!SPIFFS.begin(FORMAT_SPIFFS_IF_FAILED)) {
+      if (!SPIFFS.begin()) {
         Serial.println("SPIFFS Mount Failed");
         return false;
       }
@@ -18,7 +16,7 @@ class utilsSPIFFS {
     }
 
     bool writeFile(String path, String message) {
-      File file = SPIFFS.open(path, FILE_WRITE);
+      File file = SPIFFS.open(path, "w");
       if (!file) {
         Serial.println("- failed to open file for writing");
         file.close();
@@ -36,8 +34,8 @@ class utilsSPIFFS {
 
     String readFile(String path) {
       String dataText = "";
-      File file = SPIFFS.open(path);
-      if (!file || file.isDirectory()) {
+      File file = SPIFFS.open(path, "r");
+      if (!file) {
         Serial.println("- failed to open file for reading");
         file.close();
         return dataText;
@@ -52,7 +50,7 @@ class utilsSPIFFS {
     }
 
     bool appendFile(String path, String message) {
-      File file = SPIFFS.open(path, FILE_APPEND);
+      File file = SPIFFS.open(path, "a");
       if (!file) {
         Serial.println("- failed to open file for appending");
         file.close();
