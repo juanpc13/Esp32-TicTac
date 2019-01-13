@@ -22,9 +22,11 @@ void setup() {
   myWiFi.setWifiFile(wifiFile);
   myWiFi.setFileSystem(&uFileS);
   myWiFi.begin();
-  wifiMulti.run();
 
-  display.clear(); display.display();
+  wifiMulti.run();
+  delay(1000);
+  display.clear();display.display();
+   
 }
 
 void loop() {
@@ -33,18 +35,23 @@ void loop() {
   boolean conected = wifiMulti.run();
   byte switchValue = digitalRead(switchPin);
 
-  display.clear();
-
-  if (switchButton.isPressed() && conected) {
+  if (switchButton.doubleSwitch() == 1) {
+    display.clear();
     display.setFont(ArialMT_Plain_10);
     display.setTextAlignment(TEXT_ALIGN_CENTER);
+    count++;
+    display.drawString(64, 10, String(count));
     display.drawString(64, 22, WiFi.localIP().toString());
-    if(switchButton.longPress()){
-      display.drawString(64, 5, "LongPress Active");            
-    }
+    display.display();
   }
 
-  display.display();
+  if (switchButton.doubleSwitch() == 2) {
+    display.clear();
+    display.setFont(ArialMT_Plain_10);
+    display.setTextAlignment(TEXT_ALIGN_CENTER);
+    display.drawString(64, 22, String(millis() / 1000) + "s");
+    display.display();
+  }
 
 }
 

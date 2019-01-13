@@ -25,6 +25,7 @@ SH1106 display(0x3c, 0, 2);
 #define FORMAT_SPIFFS false
 const byte switchPin = 1;
 const byte externalPin = 3;
+int count = 0;
 
 //Objeto del boton
 #include "ButtonTool.h"

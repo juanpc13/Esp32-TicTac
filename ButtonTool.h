@@ -1,8 +1,11 @@
 class ButtonTool {
   private:
     uint8_t _pinButton;
+    boolean permit = false;
+    boolean lastPush = HIGH;
     boolean singlePush = true;
-    int _longPressTimmer = 750;
+    int _minPressTimmer = 10;
+    int _longPressTimmer = 370;
     unsigned long pressedTime = 0;
 
   public:
@@ -18,7 +21,10 @@ class ButtonTool {
     }
 
     void update() {
-      if (digitalRead(_pinButton) != LOW) {
+      permit = (lastPush == LOW && digitalRead(_pinButton) == HIGH);
+      lastPush = digitalRead(_pinButton);
+
+      if (digitalRead(_pinButton) == HIGH && permit == false) {
         pressedTime = millis();
         singlePush = true;
       }
@@ -26,7 +32,7 @@ class ButtonTool {
 
     boolean isPressed() {
       unsigned long delta = millis() - pressedTime;
-      if (delta >= 100) {
+      if (delta >= _minPressTimmer) {
         if (singlePush) {
           return true;
           singlePush = false;
@@ -35,7 +41,7 @@ class ButtonTool {
       return false;
     }
 
-    void setLongPressTimmer(int longPressTimmer){
+    void setLongPressTimmer(int longPressTimmer) {
       _longPressTimmer = longPressTimmer;
     }
 
@@ -44,6 +50,21 @@ class ButtonTool {
         return true;
       }
       return false;
+    }
+
+    uint8_t doubleSwitch() {
+      uint8_t s = 0;
+      unsigned long delta = millis() - pressedTime;
+      if (delta >= _minPressTimmer && delta <= _longPressTimmer) {
+        if (permit) {
+          s = 1;
+        }
+      } else if (delta > _longPressTimmer) {
+        if (permit) {
+          s = 2;
+        }
+      }
+      return s;
     }
 
 };
