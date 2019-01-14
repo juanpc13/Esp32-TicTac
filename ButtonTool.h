@@ -5,7 +5,7 @@ class ButtonTool {
     boolean lastPush = HIGH;
     boolean singlePush = true;
     int _minPressTimmer = 10;
-    int _longPressTimmer = 370;
+    int _longPressTimmer = 250;
     unsigned long pressedTime = 0;
 
   public:
@@ -48,6 +48,15 @@ class ButtonTool {
     boolean longPress() {
       if (millis() - pressedTime > _longPressTimmer) {
         return true;
+      }
+      return false;
+    }
+
+    boolean longPress(int customPressTimmer) {
+      if (millis() - pressedTime > customPressTimmer) {
+        if (permit) {
+          return true;
+        }        
       }
       return false;
     }
