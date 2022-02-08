@@ -1,8 +1,6 @@
 #include <Arduino.h>
 #include <Adafruit_NeoPixel.h>
-#define PIN       14
-#define NUMPIXELS 1
-Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
+#include <neoPixelSetup.cpp>
 
 #include <WiFi.h>
 #include <wifiSetup.cpp>
@@ -24,7 +22,7 @@ int lastPress = 0;
 
 void setup() {
   //Serial.begin(115200);
-  pixels.begin();
+  neoBeforeBoot();
   wifiSetup();
   otaSetup();
   deepSleepSetup();
@@ -35,6 +33,8 @@ void setup() {
   // server address, port and URL
 	webSocket.begin("192.168.1.2", 80, "/ws");
 	webSocket.setReconnectInterval(5000);
+  // Indicador para LOOP
+  neoAfterBoot();
 }
 
 void loop() {
@@ -48,12 +48,8 @@ void loop() {
     // Save timing
     activo();
     webSocket.sendTXT("-1");
+    delay(100);
   }
   lastPress = currentPress;
-
-  // NeoPixel
-  pixels.clear();
-  pixels.setPixelColor(0, pixels.Color(10, 10, 10));
-  pixels.show();
   
 }
