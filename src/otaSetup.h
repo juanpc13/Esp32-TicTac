@@ -33,9 +33,14 @@ void otaSetup(){
     ArduinoOTA.begin();
 }
 
+void otaLoop(){
+    ArduinoOTA.handle();
+}
+
 #else
 
 void otaSetup(){}
+void otaLoop(){}
 
 #endif
 

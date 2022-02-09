@@ -9,7 +9,7 @@
 #define needDeepSleep
 #include <deepSleepSetup.h>
 
-#define needOTA
+//#define needOTA
 #include <otaSetup.h>
 
 #define needWebServer
@@ -37,7 +37,7 @@ void setup() {
 
 void loop() {
   // Loops para OTA y Deep Sleep
-  ArduinoOTA.handle();
+  otaLoop();
   handleDeepSleepLoop();
   webSocketLoop();
   // My Code
