@@ -26,7 +26,7 @@ void setup() {
   wifiSetup();
   otaSetup();
   deepSleepSetup();
-  //webServerSetup();
+  webServerSetup();
   // Config Pins
   pinMode(btn, INPUT);
 	webSocketSetup();
@@ -34,11 +34,18 @@ void setup() {
   neoAfterBoot();
 }
 
-void loop() {
-  // Loops para OTA y Deep Sleep
+void servicios(){
+  // Loops para OTA
   otaLoop();
+  // Loop Deep Sleep
   handleDeepSleepLoop();
-  webSocketLoop();
+  // Loop WebSocket
+  webSocketLoop();  
+}
+
+void loop() {
+  //Loop de servicios sin DELAY
+  servicios();
   // My Code
   int currentPress = digitalRead(btn);
   if(lastPress == 0 && currentPress == 1){
