@@ -11,7 +11,6 @@ void deepSleepSetup() {
 void beforeDeepSleep() {
   // NEO PIXEL
   pixels.clear();
-  pixels.setPixelColor(0, pixels.Color(0, 0, 0));
   pixels.show();
 }
 void handleDeepSleepLoop() {
