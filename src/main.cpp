@@ -1,16 +1,19 @@
 #include <Arduino.h>
-#include <neoPixelSetup.cpp>
 
-#include <WiFi.h>
-#include <wifiSetup.cpp>
+#define needNeoPixel
+#include <neoPixelSetup.h>
 
-#include <ArduinoOTA.h>
-#include <otaSetup.cpp>
+#define needWifi
+#include <wifiSetup.h>
 
-#include <ESPAsyncWebServer.h>
-#include <webServerSetup.cpp>
+#define needDeepSleep
+#include <deepSleepSetup.h>
 
-#include <deepSleepSetup.cpp>
+#define needOTA
+#include <otaSetup.h>
+
+#define needWebServer
+#include <webServerSetup.h>
 
 #define needWebSocket
 #include <webSocketSetup.h>

@@ -1,4 +1,4 @@
-#ifdef Arduino_h
+#ifdef needDeepSleep
 #define minutes   1
 
 // Timing y Deep Sleep
@@ -26,5 +26,12 @@ void handleDeepSleepLoop() {
 void activo() {
   lastTime = millis();
 }
+
+#else
+
+void deepSleepSetup() {}
+void beforeDeepSleep() {}
+void handleDeepSleepLoop() {}
+void activo() {}
 
 #endif

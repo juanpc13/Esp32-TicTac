@@ -1,4 +1,5 @@
-#ifdef WiFi_h>
+#ifdef needWifi
+#include <WiFi.h>
 
 IPAddress staticIP(192, 168, 1, 100);
 IPAddress gateway(192, 168, 1, 1);
@@ -27,5 +28,10 @@ void wifiSetup(){
     Serial.print("IP address: ");
     Serial.println(WiFi.localIP());  
 }
+
+#else
+
+void wifiSetup(){}
+
 #endif
 

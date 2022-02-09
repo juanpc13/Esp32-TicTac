@@ -1,4 +1,4 @@
-#ifdef Arduino_h>
+#ifdef needNeoPixel
 #include <Adafruit_NeoPixel.h>
 
 #define PIN         14
@@ -16,5 +16,10 @@ void neoAfterBoot(){
     pixels.setPixelColor(0, pixels.Color(5, 5, 5));
     pixels.show();
 }
+#else
+
+void neoBeforeBoot(){}
+void neoAfterBoot(){}
+
 #endif
 

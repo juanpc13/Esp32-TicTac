@@ -1,4 +1,5 @@
-#ifdef __ARDUINO_OTA_H>
+#ifdef needOTA
+#include <ArduinoOTA.h>
 
 void otaSetup(){
     ArduinoOTA.setPort(3232);
@@ -31,5 +32,10 @@ void otaSetup(){
 
     ArduinoOTA.begin();
 }
+
+#else
+
+void otaSetup(){}
+
 #endif
 

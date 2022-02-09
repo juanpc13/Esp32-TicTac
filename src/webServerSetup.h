@@ -1,5 +1,6 @@
-#ifdef _ESPAsyncWebServer_H_>
+#ifdef needWebServer
 #include "SPIFFS.h"
+#include <ESPAsyncWebServer.h>
 
 AsyncWebServer server(80);
 AsyncWebSocket ws("/ws");
@@ -36,4 +37,9 @@ void webServerSetup(){
   DefaultHeaders::Instance().addHeader("Access-Control-Allow-Origin", "*");
   server.begin();
 }
+
+#else
+
+void webServerSetup(){}
+
 #endif
