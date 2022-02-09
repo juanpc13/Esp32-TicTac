@@ -23,8 +23,14 @@ void handleDeepSleepLoop() {
     esp_deep_sleep_start();
   }  
 }
-void activo() {
+void saveTime() {
   lastTime = millis();
+}
+
+boolean longPress(int value) {
+  unsigned long currentIme = millis();
+  diferencia = currentIme - lastTime;
+  return diferencia >= value;
 }
 
 #else
@@ -32,6 +38,7 @@ void activo() {
 void deepSleepSetup() {}
 void beforeDeepSleep() {}
 void handleDeepSleepLoop() {}
-void activo() {}
+void saveTime() {}
+boolean longPress() {return false;}
 
 #endif
