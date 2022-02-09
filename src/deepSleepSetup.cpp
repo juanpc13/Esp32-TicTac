@@ -1,4 +1,5 @@
 #ifdef Arduino_h
+#define minutes   1
 
 // Timing y Deep Sleep
 unsigned long lastTime = 0;
@@ -17,7 +18,7 @@ void handleDeepSleepLoop() {
   // Deep Sleep Timing in 2 minutes
   unsigned long currentIme = millis();
   diferencia = currentIme - lastTime;
-  if(diferencia >= 1000 * 60 * 2){
+  if(diferencia >= 1000 * 60 * minutes){
     beforeDeepSleep();
     esp_deep_sleep_start();
   }  
