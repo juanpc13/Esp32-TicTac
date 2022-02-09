@@ -1,4 +1,6 @@
 #ifdef _ESPAsyncWebServer_H_>
+#include "SPIFFS.h"
+
 AsyncWebServer server(80);
 AsyncWebSocket ws("/ws");
 

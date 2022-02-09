@@ -1,6 +1,5 @@
-#include <Arduino.h>
-
-#ifdef ADAFRUIT_NEOPIXEL_H>
+#ifdef Arduino_h>
+#include <Adafruit_NeoPixel.h>
 
 #define PIN         14
 #define NUMPIXELS   1
