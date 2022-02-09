@@ -1,21 +1,20 @@
 #include <Arduino.h>
 
-#define needNeoPixel
-#include <neoPixelSetup.h>
-
 #define needWifi
 #include <wifiSetup.h>
-
-#define needDeepSleep
-#include <deepSleepSetup.h>
 
 //#define needOTA
 #include <otaSetup.h>
 
-#define needWebServer
-#include <webServerSetup.h>
+#define needDeepSleep
+#include <deepSleepSetup.h>
 
-#define needWebSocket
+#define needNeoPixel
+#include <neoPixelSetup.h>
+
+//#define needWebServer
+#include <webServerSetup.h>
+//#define needWebSocket
 #include <webSocketSetup.h>
 
 const int btn = 4;
