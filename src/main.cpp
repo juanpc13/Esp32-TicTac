@@ -35,7 +35,7 @@ void setup() {
 	webSocketSetup();
   // Indicador para LOOP
   neoAfterBoot();
-  delay(500);
+  //delay(500);
   // Colores de la accion
   colorAccion();
 }
@@ -60,8 +60,12 @@ void loop() {
     saveTime();
     // Retardando el boton
     while(digitalRead(btn)){delay(10);}
+    // Long Press more than 3 s
+    if(longPress(3000)){
+      // Apagar
+      doSleep();
     // Long Press more than 600 ms
-    if(longPress(600)){
+    }else if(longPress(600)){
       // Accion de larga duracion
       nextAccion();
     }else{

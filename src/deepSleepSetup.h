@@ -13,13 +13,16 @@ void beforeDeepSleep() {
   pixels.clear();
   pixels.show();
 }
+void doSleep(){
+  beforeDeepSleep();
+  esp_deep_sleep_start();
+}
 void handleDeepSleepLoop() {
   // Deep Sleep Timing in 2 minutes
   unsigned long currentIme = millis();
   diferencia = currentIme - lastTime;
   if(diferencia >= 1000 * 60 * minutes){
-    beforeDeepSleep();
-    esp_deep_sleep_start();
+    doSleep();
   }  
 }
 void saveTime() {
@@ -39,5 +42,6 @@ void beforeDeepSleep() {}
 void handleDeepSleepLoop() {}
 void saveTime() {}
 boolean longPress() {return false;}
+void doSleep(){}
 
 #endif
