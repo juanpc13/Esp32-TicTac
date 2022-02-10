@@ -8,7 +8,9 @@ MQTTClient client;
 #define userMqtt "juanpc13"
 #define passMqtt "a"
 #define hostNameMqtt "juansv.com"
-#define pathMqtt "America/El_Salvador/Santa_Ana/juanpc13/Casa1/Lampara1/Triac/"
+#define pubPathMqtt "America/El_Salvador/Santa_Ana/juanpc13/Casa1/Lampara1/Triac/set/"
+#define subPathMqtt "America/El_Salvador/Santa_Ana/juanpc13/Casa1/Lampara1/Triac/"
+
 void messageReceived(String &topic, String &payload) {
   Serial.println("incoming: " + topic + " - " + payload);
   //int result = payload.toInt();
@@ -23,7 +25,7 @@ void connect() {
         delay(500);
         otaLoop();
     }
-    client.subscribe(pathMqtt);
+    client.subscribe(subPathMqtt);
 }
 
 void mqttSetup(){

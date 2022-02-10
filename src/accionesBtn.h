@@ -24,7 +24,7 @@ void colorAccion(){
 void btnAccion(){
   switch (accionIndex){
   case 1:
-    mqttPublish(pathMqtt, "-1");
+    mqttPublish(pubPathMqtt, "-1");
     break;
   case 2:
     //mqttPublish(pathMqtt, "-1");
