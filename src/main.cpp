@@ -12,19 +12,15 @@
 #define needDeepSleep
 #include <deepSleepSetup.h>
 
-//#define needWebServer
-#include <webServerSetup.h>
+int brillo = 0;
+// Update from MQTT
+boolean update = false;
+const int btn = 4;
+int lastPress = 0;
 
 #define needMqtt
 #include <mqttSetup.h>
-
-//#define needWebSocket
-#include <webSocketSetup.h>
-
 #include <accionesBtn.h>
-
-const int btn = 4;
-int lastPress = 0;
 
 void setup() {
   //Serial.begin(115200);
@@ -32,10 +28,8 @@ void setup() {
   wifiSetup();
   otaSetup();
   deepSleepSetup();
-  webServerSetup();
   // Config Pins
   pinMode(btn, INPUT);
-	webSocketSetup();
   // MQTT
   mqttSetup();
   // Indicador para LOOP
@@ -51,8 +45,6 @@ void servicios(){
   otaLoop();
   // Loop Deep Sleep
   handleDeepSleepLoop();
-  // Loop WebSocket
-  webSocketLoop();
   // Loop MQTT
   mqttLoop();
 }
@@ -84,5 +76,9 @@ void loop() {
     delay(100);
   }
   lastPress = currentPress;
-  
+  // Update from MQTT
+  if(update){
+    colorAccion();
+    update = false;
+  }
 }

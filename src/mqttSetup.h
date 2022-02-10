@@ -12,14 +12,15 @@ MQTTClient client;
 #define subPathMqtt "America/El_Salvador/Santa_Ana/juanpc13/Casa1/Lampara1/Triac/"
 
 void messageReceived(String &topic, String &payload) {
-  Serial.println("incoming: " + topic + " - " + payload);
-  //int result = payload.toInt();
+  //Serial.println("incoming: " + topic + " - " + payload);
+  brillo = payload.toInt();
+  update = true;
 }
 
 void connect() {
     net.setInsecure();
     while (!client.connect(uidMqtt, userMqtt, passMqtt)) {
-        Serial.print(".");
+        //Serial.print(".");
         delay(500);
         otaLoop();
         delay(500);

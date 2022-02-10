@@ -7,11 +7,14 @@ void nextAccion(){
     accionIndex = 1;
   }
 }
+
 void colorAccion(){
+  int b = (brillo * 90);
+
   switch (accionIndex){
   case 1:
     pixels.clear();
-    pixels.setPixelColor(0, pixels.Color(10, 10, 0));
+    pixels.setPixelColor(0, pixels.Color(10 + b, 10 + b, 0));
     pixels.show();
     break;
   case 2:
@@ -21,6 +24,7 @@ void colorAccion(){
     break;
   }
 }
+
 void btnAccion(){
   switch (accionIndex){
   case 1:
