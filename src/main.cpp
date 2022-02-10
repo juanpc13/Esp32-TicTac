@@ -15,7 +15,10 @@
 //#define needWebServer
 #include <webServerSetup.h>
 
-#define needWebSocket
+#define needMqtt
+#include <mqttSetup.h>
+
+//#define needWebSocket
 #include <webSocketSetup.h>
 
 #include <accionesBtn.h>
@@ -33,6 +36,8 @@ void setup() {
   // Config Pins
   pinMode(btn, INPUT);
 	webSocketSetup();
+  // MQTT
+  mqttSetup();
   // Indicador para LOOP
   neoAfterBoot();
   //delay(500);
@@ -48,6 +53,8 @@ void servicios(){
   handleDeepSleepLoop();
   // Loop WebSocket
   webSocketLoop();
+  // Loop MQTT
+  mqttLoop();
 }
 
 void loop() {

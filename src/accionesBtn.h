@@ -24,10 +24,10 @@ void colorAccion(){
 void btnAccion(){
   switch (accionIndex){
   case 1:
-    webSocketSendAll("-1");
+    mqttPublish(pathMqtt, "-1");
     break;
   case 2:
-    // NO PROGRAMADO
+    //mqttPublish(pathMqtt, "-1");
     break;
   }
 }
