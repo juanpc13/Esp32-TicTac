@@ -15,6 +15,7 @@ void beforeDeepSleep() {
 }
 void doSleep(){
   beforeDeepSleep();
+  delay(1000);// Evitar que el boton lo vuelva a encender
   esp_deep_sleep_start();
 }
 void handleDeepSleepLoop() {

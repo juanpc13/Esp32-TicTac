@@ -58,13 +58,17 @@ void loop() {
     // Save timing
     saveTime();
     // Retardando el boton
-    while(digitalRead(btn)){delay(10);}
-    // Long Press more than 3 s
-    if(longPress(3000)){
-      // Apagar
-      doSleep();
+    int tinyTiming = 0;
+    while(digitalRead(btn)){
+      delay(10);
+      tinyTiming += 10;
+      // Si tinyTiming excede los 3 segundos apagar
+      if(tinyTiming > 3000){
+        doSleep();
+      }
+    }
     // Long Press more than 600 ms
-    }else if(longPress(600)){
+    if(longPress(600)){
       // Accion de larga duracion
       nextAccion();
     }else{
