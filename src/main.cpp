@@ -6,20 +6,17 @@
 #define needOTA
 #include <otaSetup.h>
 
-#define needNeoPixel
-#include <neoPixelSetup.h>
-
 #define needDeepSleep
 #include <deepSleepSetup.h>
+
+#define needMqtt
+#include <mqttSetup.h>
 
 int brillo = 0;
 // Update from MQTT
 boolean update = false;
-const int btn = 4;
-int lastPress = 0;
 
-#define needMqtt
-#include <mqttSetup.h>
+int lastPress = 0;
 #include <accionesBtn.h>
 
 void setup() {
@@ -28,15 +25,11 @@ void setup() {
   wifiSetup();
   otaSetup();
   deepSleepSetup();
-  // Config Pins
-  pinMode(btn, INPUT);
   // MQTT
   mqttSetup();
   // Indicador para LOOP
-  neoAfterBoot();
-  //delay(500);
-  // Colores de la accion
-  colorAccion();
+  neoAfterBoot();  
+  btnSetup();
 }
 
 // LOOPS SIN DELAY SI ESTAN ACTIVADOS
@@ -53,33 +46,7 @@ void loop() {
   //Loop de servicios sin DELAY
   servicios();
   // My Code
-  int currentPress = digitalRead(btn);
-  if(lastPress == 0 && currentPress == 1){
-    // Save timing
-    saveTime();
-    // Retardando el boton
-    int tinyTiming = 0;
-    while(digitalRead(btn)){
-      delay(10);
-      tinyTiming += 10;
-      // Si tinyTiming excede los 3 segundos apagar
-      if(tinyTiming > 3000){
-        doSleep();
-      }
-    }
-    // Long Press more than 600 ms
-    if(longPress(600)){
-      // Accion de larga duracion
-      nextAccion();
-    }else{
-      // Accion normal
-      btnAccion();
-    }
-    // Mostrar color de la accion
-    colorAccion();
-    delay(100);
-  }
-  lastPress = currentPress;
+  btnLoop();
   // Update from MQTT
   if(update){
     colorAccion();
