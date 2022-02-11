@@ -12,13 +12,12 @@ MQTTClient client;
 #define subPathMqtt "America/El_Salvador/Santa_Ana/juanpc13/Casa1/Lampara1/Triac/"
 
 // Accion a ejecutar cuando se reciba in mensaje
-void (*receivedMQTT)(void);
+void (*receivedMqttCallback)(int &value);
 
 void messageReceived(String &topic, String &payload) {
   //Serial.println("incoming: " + topic + " - " + payload);
-  //brillo = payload.toInt();
-  //update = true;
-  receivedMQTT();
+  int v = payload.toInt();
+  receivedMqttCallback(v);
 }
 
 void connect() {
@@ -55,6 +54,7 @@ void mqttLoop(){
 
 #else
 #define pathMqtt "/none"
+#define pubPathMqtt "none"
 
 void (*receivedMQTT)(void);
 void mqttSetup(){}

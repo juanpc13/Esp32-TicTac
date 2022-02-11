@@ -2,7 +2,7 @@
 #define minutes   1
 
 // Accion a ejecutar antes de entrar en deepSleep
-void (*beforeDeepSleep)(void);
+void (*beforeDeepSleepCallback)(void);
 
 // Timing y Deep Sleep
 unsigned long lastTime = 0;
@@ -12,7 +12,7 @@ void deepSleepSetup() {
   esp_sleep_enable_ext0_wakeup(GPIO_NUM_4, 1);
 }
 void doSleep(){
-  beforeDeepSleep();
+  beforeDeepSleepCallback();
   delay(1000);// Evitar que el boton lo vuelva a encender
   esp_deep_sleep_start();
 }
@@ -36,7 +36,7 @@ boolean longPress(int value) {
 
 #else
 
-void (*beforeDeepSleep)(void);
+void (*beforeDeepSleepCallback)(void);
 void deepSleepSetup() {}
 void beforeDeepSleep() {}
 void handleDeepSleepLoop() {}

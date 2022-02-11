@@ -64,17 +64,29 @@ void btnAccion(){
   }
 }
 
+void receivedMQTT(int &v){
+  brillo = v;
+  update = true;
+}
+
 void btnSetup(){
   // SE CONFIGURA BOTON
   pinMode(btn, INPUT);
+  
   // SE ASGINA LA FUNCION A EJECUTAR SI SE PRESIONA 1 VEZ
   onPressCallback = &btnAccion;//ACCIONAR FUNCION
+
   // SE ASGINA LA FUNCION A EJECUTAR SI SE PRESIONA MAS DE 600ms
   onLongPressCallback = &nextAccion;//SIGUIENTE ITERACION
+
   // SE ASGINA LA FUNCION A EJECUTAR SI SE PRESIONA MUCHO TIEMPO 3s
   onLargePressCallback = &doSleep;//DEEPSLEEP
+
   // Antes de entrar a DeepSleep Callback
-  beforeDeepSleep =&neoBeforeDeepSleep;
+  beforeDeepSleepCallback = &neoBeforeDeepSleep;
+
+  // SE CONFIGURA FUNCION CUANDO SE RECIBE POR MQTT
+  receivedMqttCallback = &receivedMQTT;
 
   // SE ACTUALIZAN LOS COLORES
   colorAccion();
