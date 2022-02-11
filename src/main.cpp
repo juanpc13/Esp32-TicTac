@@ -13,8 +13,6 @@
 #include <mqttSetup.h>
 
 int brillo = 0;
-// Update from MQTT
-boolean update = false;
 
 int lastPress = 0;
 #include <accionesBtn.h>
@@ -36,20 +34,22 @@ void setup() {
 void servicios(){
   // Loops para OTA
   otaLoop();
-  // Loop Deep Sleep
-  handleDeepSleepLoop();
   // Loop MQTT
   mqttLoop();
 }
 
 void loop() {
-  //Loop de servicios sin DELAY
-  servicios();
-  // My Code
-  btnLoop();
-  // Update from MQTT
-  if(update){
-    colorAccion();
-    update = false;
+  ////// LOOPS CON INTERNET
+  if(wifiLoop()){
+
+    //Loop de servicios sin DELAY
+    servicios();
+    
   }
+
+  // Manejando Botones
+  btnLoop();
+  
+  // Loop Deep Sleep
+  handleDeepSleepLoop();
 }

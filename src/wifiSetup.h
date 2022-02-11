@@ -1,37 +1,39 @@
 #ifdef needWifi
 #include <WiFi.h>
+#include <WiFiMulti.h>
 
-IPAddress staticIP(192, 168, 1, 100);
-IPAddress gateway(192, 168, 1, 1);
-IPAddress subnet(255, 255, 255, 0);
-IPAddress dns(8, 8, 8, 8);
+boolean isWifiConected = false;
+WiFiMulti wifiMulti;
 
 void wifiSetup(){
-    const char* ssid = "CLARO1_8D831B";
-    const char* password = "606s2wxuxM";
-    
+    // Definiciones para Nombre del WIFI
     WiFi.setHostname("ESP32-TicTac");
-    WiFi.mode(WIFI_STA);
-    /*
-    if (WiFi.config(staticIP, gateway, subnet, dns, dns) == false) {
-        Serial.println("Configuration failed.");
-    }
-    */   
 
-    WiFi.begin(ssid, password);
-    while (WiFi.waitForConnectResult() != WL_CONNECTED) {
-        Serial.println("Connection Failed! Rebooting...");
-        delay(5000);
-        ESP.restart();
+    // Lista de WIFIS
+    wifiMulti.addAP("CLARO1_8D831B", "606s2wxuxM");
+    wifiMulti.addAP("Master", "87654321");
+    //wifiMulti.addAP("NAME", "PASS");
+    
+    // ESPERAR QUE SE CONECTE
+    if(wifiMulti.run() == WL_CONNECTED) {
+        //Serial.println("");
+        //Serial.println("WiFi connected");
+        Serial.print("IP address: ");
+        Serial.println(WiFi.localIP());  
     }
-    Serial.println("Ready");
-    Serial.print("IP address: ");
-    Serial.println(WiFi.localIP());  
+    
+}
+
+boolean wifiLoop(){
+    isWifiConected = wifiMulti.run() == WL_CONNECTED;
+    return isWifiConected;
 }
 
 #else
 
+boolean isWifiConected = false;
 void wifiSetup(){}
+boolean wifiLoop(){return isWifiConected;}
 
 #endif
 

@@ -56,7 +56,9 @@ void colorAccion(){
 void btnAccion(){
   switch (accionIndex){
   case 1:
-    mqttPublish(pubPathMqtt, "-1");
+    if(isWifiConected){
+      mqttPublish(pubPathMqtt, "-1");
+    }
     break;
   case 2:
     //mqttPublish(pathMqtt, "-1");
@@ -66,7 +68,7 @@ void btnAccion(){
 
 void receivedMQTT(int &v){
   brillo = v;
-  update = true;
+  colorAccion();
 }
 
 void btnSetup(){
