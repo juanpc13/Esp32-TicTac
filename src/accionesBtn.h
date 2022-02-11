@@ -104,13 +104,13 @@ void btnLoop(){
     while(digitalRead(btn)){
       delay(10);
       tinyTiming += 10;
-      // Si tinyTiming excede los 3 segundos apagar
-      if(tinyTiming > 3000){
+      // Si tinyTiming excede los 2 segundos apagar
+      if(tinyTiming > 2000){
         onLargePressCallback();//doSleep();
       }
     }
-    // Long Press more than 600 ms
-    if(longPress(600)){
+    // Long Press more than 400 ms
+    if(longPress(400)){
       // Accion de larga duracion
       onLongPressCallback();//nextAccion();
     }else{
