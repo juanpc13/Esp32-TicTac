@@ -1,7 +1,7 @@
 #include <Arduino.h>
 
 #ifdef needDeepSleep
-#define minutes   1
+#define minutes   3
 
 // Accion a ejecutar antes de entrar en deepSleep
 void (*beforeDeepSleepCallback)(void);
@@ -24,7 +24,7 @@ void handleDeepSleepLoop() {
   diferencia = currentIme - lastTime;
   if(diferencia >= 1000 * 60 * minutes){
     doSleep();
-  }  
+  }
 }
 
 unsigned long lastTimeOneSecond = 0;

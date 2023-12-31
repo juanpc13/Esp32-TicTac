@@ -56,7 +56,8 @@ void mqttLoop(){
 #define pathMqtt "/none"
 #define pubPathMqtt "none"
 
-void (*receivedMQTT)(void);
+// Accion a ejecutar cuando se reciba in mensaje
+void (*receivedMqttCallback)(int &value);
 void mqttSetup(){}
 void connect(){}
 void mqttPublish(const char topic[], const char payload[]){}

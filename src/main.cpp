@@ -9,17 +9,19 @@
 #define needDeepSleep
 #include <deepSleepSetup.h>
 
-#define needMqtt
+//#define needMqtt
 #include <mqttSetup.h>
 
 int brillo = 0;
 
 int lastPress = 0;
+#include <data.h>
 #include <accionesBtn.h>
 
 #include <IRremoteESP8266.h>
 #include <IRsend.h>
 const uint16_t kIrLed = 25;
+const uint16_t kIrkHz = 38;
 IRsend irsend(kIrLed);
 
 void setup() {
@@ -56,20 +58,24 @@ void loop() {
 
   if(handleOneSecond())
   {
-    String incomingString = "[21]221112141321111224241,";//COLOR
-    int startIndex = incomingString.indexOf('[') + 1;
-    int endIndex = incomingString.indexOf(']');
-    int newLength = incomingString.substring(startIndex, endIndex).toInt();
-    uint16_t newRawData[newLength] = {};
-
-    startIndex = incomingString.indexOf(']') + 1;
-    endIndex = incomingString.indexOf(',');
-    String newVals = incomingString.substring(startIndex, endIndex);
-    for (int i = 0; i < newVals.length(); i++ ) {
-      int intVal = newVals.substring(i, i + 1).toInt() * 700;
-      newRawData[i] = intVal;
+    int randomNumber = random(1, 4);
+    switch (randomNumber)
+    {
+      case 1:
+        irsend.sendRaw(yellow, yellow_size, kIrkHz);
+        break;
+      case 2:
+        irsend.sendRaw(blue, blue_size, kIrkHz);
+        break;
+      case 3:
+        irsend.sendRaw(green, green_size, kIrkHz);
+        break;
+      case 4:
+        irsend.sendRaw(pink, pink_size, kIrkHz);
+        break;    
+      default:
+        break;
     }
-    irsend.sendRaw(newRawData, newLength, 38);  // Send a raw data capture at 38kHz.
   }
 
   // Manejando Botones

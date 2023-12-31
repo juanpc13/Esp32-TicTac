@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+    <p id="demo"></p>
+    <script>
+
+        navigator.mediaDevices.getUserMedia({ audio: true })
+        .then(function(stream) {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const microphone = audioContext.createMediaStreamSource(stream);
+            // Supongamos que tienes un nodo de analizador ya configurado
+            const analyser = audioContext.createAnalyser();
+            microphone.connect(analyser);
+
+            const dataArray = new Uint8Array(analyser.frequencyBinCount);
+
+            function calcularAmplitud() {
+                analyser.getByteFrequencyData(dataArray);
+
+                // Encuentra el valor máximo en el array de datos
+                const maxAmplitud = Math.max(...dataArray);
+
+                // Calcula la amplitud relativa como un porcentaje de 100%
+                const amplitudPorcentaje = (maxAmplitud / 255) * 100;
+
+                // Utiliza amplitudPorcentaje según tus necesidades
+                if(amplitudPorcentaje > 60)
+                {
+                    console.log('Amplitud relativa: ' + amplitudPorcentaje.toFixed(2) + '%');
+                }
+            }
+
+            // Configura un bucle para calcular la amplitud continuamente
+            setInterval(calcularAmplitud, 100);
+        })
+        .catch(function(err) {
+            console.log('No se pudo acceder al micrófono: ' + err);
+        });
+
+    </script>
+</body>
+</html>
