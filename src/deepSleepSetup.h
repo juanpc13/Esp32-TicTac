@@ -1,3 +1,5 @@
+#include <Arduino.h>
+
 #ifdef needDeepSleep
 #define minutes   1
 
@@ -24,6 +26,17 @@ void handleDeepSleepLoop() {
     doSleep();
   }  
 }
+
+unsigned long lastTimeOneSecond = 0;
+bool handleOneSecond() {
+  unsigned long currenTime = millis();
+  if(currenTime - lastTimeOneSecond >= 1000){
+    lastTimeOneSecond = currenTime;
+    return true;
+  }
+  return false;
+}
+
 void saveTime() {
   lastTime = millis();
 }
