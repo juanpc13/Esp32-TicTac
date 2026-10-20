@@ -7,3 +7,7 @@
 
 ### Build From React
 spiffs
+
+### Secretos: credenciales reales, nunca al repo
+### Plantilla publica: src/secrets.example.h
+src/secrets.h
